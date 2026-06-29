@@ -1,173 +1,151 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الحصول على كود </title>
+    <!-- تضمين مكتبة تليجرام المصغرة الرسمية -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- كود الـ SDK لـ Monetag الخاص بمنطقتك الإعلانية رقم 11214314 -->
+    <script src="https://alwingulla.com/act/files/tag.min.js" data-zone="11214314" async data-cfasync="false"></script>
 
-<title>IPTV Premium Codes</title>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
-
-body{
-
-background:#0d1117;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-
-}
-
-.card{
-
-width:90%;
-max-width:380px;
-
-background:#161b22;
-
-border-radius:20px;
-
-padding:25px;
-
-text-align:center;
-
-box-shadow:0 0 20px rgba(0,0,0,.5);
-
-}
-
-.icon{
-
-font-size:70px;
-
-margin-bottom:20px;
-
-}
-
-h1{
-
-color:white;
-
-font-size:25px;
-
-margin-bottom:15px;
-
-}
-
-p{
-
-color:#b8b8b8;
-
-line-height:28px;
-
-margin-bottom:30px;
-
-}
-
-button{
-
-width:100%;
-
-padding:16px;
-
-border:none;
-
-border-radius:12px;
-
-background:#238636;
-
-color:white;
-
-font-size:18px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-button:active{
-
-transform:scale(.96);
-
-}
-
-#result{
-
-display:none;
-
-margin-top:25px;
-
-background:#0d1117;
-
-padding:15px;
-
-border-radius:10px;
-
-color:#58a6ff;
-
-white-space:pre-wrap;
-
-word-break:break-word;
-
-}
-
-</style>
-
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto auto auto;
+            background: #151f32;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+        .logo {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 22px;
+            color: #38bdf8;
+            margin-bottom: 5px;
+        }
+        p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.4);
+        }
+        .btn:hover {
+            transform: scale(1.02);
+        }
+        .code-box {
+            display: none;
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            white-space: pre-line;
+            font-family: monospace;
+            font-size: 14px;
+            color: #34d399;
+            direction: ltr; /* لترتيب أسطر كود الـ IPTV بشكل صحيح */
+        }
+        .btn-copy {
+            display: none;
+            background: #10b981;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="card">
+    <div class="container">
+        <div class="logo">📺</div>
+        <h1>xtream generator</h1>
+        <p>شاهد الإعلان بالكامل للحصول على كود المشاهدة الخاص بك</p>
+        
+        <button class="btn" id="adBtn" onclick="showRewardedAd()">🎥 شاهد الإعلان للحصول على كود</button>
+        
+        <div class="code-box" id="codeBox"></div>
+        <button class="btn btn-copy" id="copyBtn" onclick="copyCode()">📋 نسخ الكود الكامل</button>
+    </div>
 
-<div class="icon">
-🎁
-</div>
+    <script>
+        // تهيئة تطبيق تليجرام المصغر
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // تمديد التطبيق ليأخذ الشاشة كاملة في الهاتف
+        
+        // جلب معرف المستخدم الحقيقي من تليجرام تلقائياً
+        const userId = tg.initDataUnsafe?.user?.id || "test_user_123"; 
 
-<h1>
+        function showRewardedAd() {
+            // التحقق من أن دالة إعلان Monetag تم تحميلها بنجاح
+            if (typeof show_11214314 === 'function') { 
+                show_11214314().then(() => {
+                    // يتم تنفيذ هذا الجزء فوراً وبأمان بعد إكمال مشاهدة الإعلان بالكامل
+                    fetchCodeFromServer(true);
+                }).catch((err) => {
+                    alert("فشل تحميل الإعلان، يرجى المحاولة مجدداً لربح الكود.");
+                    console.error(err);
+                });
+            } else {
+                alert("جاري تجهيز الإعلان، يرجى الانتظار بضع ثوانٍ ثم الضغط مجدداً.");
+            }
+        }
 
-احصل على كود IPTV
+        function fetchCodeFromServer(isAdDone) {
+            // إرسال طلب للـ Backend للحصول على الكود الخاص بالمستعمل الحالي
+            fetch('/get_code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    telegram_id: userId,
+                    ad_completed: isAdDone
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.code) {
+                    // عرض الكود وزر النسخ وإخفاء زر الإعلان
+                    document.getElementById('codeBox').innerText = data.code;
+                    document.getElementById('codeBox').style.display = 'block';
+                    document.getElementById('copyBtn').style.display = 'block';
+                    document.getElementById('adBtn').style.display = 'none';
+                } else {
+                    alert(data.error || "حدث خطأ أثناء جلب الكود.");
+                }
+            })
+            .catch(err => alert("خطأ في الاتصال بالسيرفر."));
+        }
 
-</h1>
-
-<p>
-
-شاهد الإعلان كاملاً ثم اضغط على الزر للحصول على كود IPTV مجاني.
-
-</p>
-
-<button onclick="showCode()">
-
-🎥 شاهد الإعلان
-
-</button>
-
-<div id="result"></div>
-
-</div>
-
-<script>
-
-function showCode(){
-
-document.getElementById("result").style.display="block";
-
-document.getElementById("result").innerHTML=
-
-`هنا سيظهر الكود بعد مشاهدة الإعلان`;
-
-}
-
-</script>
-
+        function copyCode() {
+            const codeText = document.getElementById('codeBox').innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert("تم نسخ الكود بنجاح!");
+            });
+        }
+    </script>
 </body>
 </html>

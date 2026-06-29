@@ -1,0 +1,9 @@
+SERVER: http://example.com:8080
+USER: user_one
+PASS: pass_one
+M3U: http://example.com:8080/get.php?auth=one
+---
+SERVER: http://example.com:8080
+USER: user_two
+PASS: pass_two
+M3U: http://example.com:8080/get.php?auth=two
