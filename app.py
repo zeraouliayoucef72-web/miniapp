@@ -1,12 +1,11 @@
 import os
 import sqlite3
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import telebot
 
 app = Flask(__name__)
 
-# ⚙️ إعدادات البوت والمسؤول
-# يمكنك وضع التوكن والـ ID هنا مباشرة أو عبر الـ Environment Variables في Render
+# ⚙️ إعدادات البوت والمسؤول (تأخذ قيمها من Environment Variables في Render)
 BOT_TOKEN = os.environ.get('BOT_TOKEN', 'ضع_هنا_توكن_البوت_الخاص_بك')
 ADMIN_ID = int(os.environ.get('ADMIN_ID', 'ضع_هنا_رقم_حسابك_Id'))
 
@@ -30,14 +29,10 @@ def init_db():
 # تهيئة قاعدة البيانات عند تشغيل السيرفر
 init_db()
 
-# 🌐 1. الرابط الرئيسي للميني أب (حل مشكلة Not Found)
+# 🌐 1. الرابط الرئيسي للميني أب - يقرأ تلقائياً من مجلد templates
 @app.route('/')
 def home():
-    try:
-        with open('index.html', 'r', encoding='utf-8') as f:
-            return f.read()
-    except FileNotFoundError:
-        return "⚠️ خطأ: ملف index.html غير موجود في مجلد المشروع!", 404
+    return render_template('index.html')
 
 # 📊 2. رابط API تستدعيه صفحة index.html لجلب الأكواد وعرضها لداخل التطبيق
 @app.route('/api/codes', methods=['GET'])
@@ -48,7 +43,6 @@ def get_codes():
     rows = cursor.fetchall()
     conn.close()
     
-    # تحويل البيانات إلى صيغة JSON لتسهيل قراءتها بـ JavaScript
     codes_list = []
     for row in rows:
         codes_list.append({
@@ -164,7 +158,5 @@ def clear_codes(message):
     bot.reply_to(message, "🗑️ تم إفراغ قاعدة البيانات ومسح جميع الأكواد بنجاح!")
 
 if __name__ == '__main__':
-    # تشغيل السيرفر
-    # تأكد من إعداد المنفذ (Port) ليتناسب مع Render تلقائياً
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
